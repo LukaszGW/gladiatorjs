@@ -53,7 +53,7 @@ const paginateArray = (dataEntries, settings) => {
       entriesToArray.push(dataEntries.slice(i, i + settings.entriesOnPage));
   }
   /*Walidacja dataEntries czy jest Arrayem, i czy zawiera jakieś elementy do paginacji.
-  Warunek waliduje również czy*/
+  Warunek waliduje również czy zmienne nie są nullem*/
   if (settings != null && dataEntries != null) {
     if (Array.isArray(dataEntries) && Boolean(dataEntries[0]) && typeof(settings.actualPageIdx) == "number" && typeof(settings.entriesOnPage) == "number") && entriesToArray[actualPageIdx] != undefinded
     {
