@@ -57,4 +57,13 @@ const paginateArray = (dataEntries, settings) => {
 	if (arrayValidator&&settingsValidator&&isNotEmptySettings == true) {
 		return  dataEntries.slice(settings.actualPageIdx*settings.entriesOnPage - settings.entriesOnPage,settings.actualPageIdx*settings.entriesOnPage);
 	}
+  else if (arrayValidator == false) {
+    console.log("Źle wprowadzone dane zmiennej dataEntries. Zmienną powinna być tablica, która zawiera przynajmniej jeden element")
+  }
+  else if (settingsValidator == false) {
+    console.log("Złe dane w kluczach walidatora. Kluczem walidatora powinna być całkowita liczba dodatnia")
+  }
+  else if (isNotEmptyArray) {
+    console.log("Zmienna settings powinna być obiektem i zawierać klucze actualPageIdx i entriesOnPage. actualPageIdx to index wybranej strony a entriesOnPage to maksymalna zwracana ilość elementów z dataEntries dla wybranej strony ")
+  }
     };
