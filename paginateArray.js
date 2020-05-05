@@ -45,23 +45,16 @@ let dataEntries = [31, 30, 304, 303, 304, 305, 307, 307, 306, 307, 307, 307,
 //settings zmienna z ustawieniami dotyczącymi indeksu strony (actualPageIdx)
 let settings = {actualPageIdx:9, entriesOnPage:50};
 
+/*Walidacja dataEntries czy jest Arrayem, i czy zawiera jakieś elementy do paginacji.
+Warunek waliduje również czy*/
+const validator = Array.isArray(dataEntries)&&dataEntries.length>0&&typeof(settings.actualPageIdx) == "number" && typeof(settings.entriesOnPage) == "number"
 
 // Stwórz funkcję paginateArray
 const paginateArray = (dataEntries, settings) => {
-  entriesToArray = []
-  for (let i=0; i < dataEntries.length; i += settings.entriesOnPage) {
-      entriesToArray.push(dataEntries.slice(i, i + settings.entriesOnPage));
-  }
-  /*Walidacja dataEntries czy jest Arrayem, i czy zawiera jakieś elementy do paginacji.
-  Warunek waliduje również czy zmienne nie są nullem*/
-  if (settings != null && dataEntries != null) {
-    if (Array.isArray(dataEntries) && Boolean(dataEntries[0]) && typeof(settings.actualPageIdx) == "number" && typeof(settings.entriesOnPage) == "number") && entriesToArray[actualPageIdx] != undefinded
-    {
-      let entriesOnSelectedPage = entriesToArray[settings.actualPageIdx];
-      return entriesOnSelectedPage;
+      return  dataEntries.slice(settings.actualPageIdx*settings.entriesOnPage - settings.entriesOnPage,settings.actualPageIdx*settings.entriesOnPage);
       };
-    }
-  else {
-    console.log("Błędnie wprowadzone dane. Sprawdź i wprowadź je jeszcze raz")
-  }
+
+if (validator == true) {
+  entriesOnSelectedPage = paginateArray(dataEntries, settings)
+  console.log(entriesOnSelectedPage)
 }
