@@ -49,11 +49,12 @@ let settings = {actualPageIdx:9, entriesOnPage:50};
 
 // Stwórz funkcję paginateArray
 const paginateArray = (dataEntries, settings) => {
-	const arrayValidator = Array.isArray(dataEntries)&&dataEntries.length>0
-	const settingsValidator = Number.isInteger(settings.actualPageIdx)&&Number.isInteger(settings.entriesOnPage)&&settings.actualPageIdx>0&&settings.entriesOnPage>0
+	const isNotEmptyArray = Array.isArray(dataEntries)&&dataEntries.length>0
+	const settingsVariableValidator = Number.isInteger(settings.actualPageIdx)&&Number.isInteger(settings.entriesOnPage)&&settings.actualPageIdx>0&&settings.entriesOnPage>0
+	const isNotEmptySettings = settings instanceof Object&&Object.keys(ob).length>0
 	/*Walidacja dataEntries czy jest Arrayem, i czy zawiera jakieś elementy do paginacji.
 	Warunek waliduje również czy*/
-	if (arrayValidator&&settingsValidator == true) {
+	if (arrayValidator&&settingsValidator&&isNotEmptySettings == true) {
 		return  dataEntries.slice(settings.actualPageIdx*settings.entriesOnPage - settings.entriesOnPage,settings.actualPageIdx*settings.entriesOnPage);
 	}
-};
+    };
