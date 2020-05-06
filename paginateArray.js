@@ -67,7 +67,7 @@ function valid_dataEntries(dataEntries) {
 }
 
 //Walidacja zmiennej settings
-function valid_settings(settings) {
+function valid_settings(settings, dataEntries) {
   if (settings instanceof Object === false) {
     console.error("Zmienna settings musi być obiektem");
     return false
@@ -84,12 +84,16 @@ function valid_settings(settings) {
     console.error("Zmienna settings musi mieć klucze z wartościami liczb całkowitych");
     return false
   }
+  if (Math.ceil(dataEntries.length/50)<settings.actualPageIdx) {
+    console.error("Zmienna actualPageIdx przekracza dozwoloną liczbę indeksu");
+    return false
+  }
   return true
 }
 
 // Stwórz funkcję paginateArray
 const paginateArray = (dataEntries, settings) => {
-  if (valid_settings()&&valid_dataEntries() == true) {
+  if (valid_settings(settings, dataEntries)&&valid_dataEntries(dataEntries) == true) {
     return dataEntries.slice(settings.actualPageIdx*settings.entriesOnPage - settings.entriesOnPage,settings.actualPageIdx*settings.entriesOnPage);
   }
   return false
