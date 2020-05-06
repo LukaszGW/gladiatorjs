@@ -40,30 +40,56 @@ let dataEntries = [31, 30, 304, 303, 304, 305, 307, 307, 306, 307, 307, 307,
    306, 37, 306, 306, 307, 36, 307, 306, 307, 307, 300, 307, 307, 307, 307,
    306, 306, 307, 306, 306, 307, 307, 306, 305, 307, 307, 307, 307, 307, 29,
    22, 286, 257, 27, 257, 257, 257, 257, 257, 257, 257, 257, 25, 257, 257,
-   257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 200, 300]
+   257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 200, 300];
 
 //settings zmienna z ustawieniami dotyczącymi indeksu strony (actualPageIdx)
 let settings = {actualPageIdx:9, entriesOnPage:50};
 
+//Walidacja zmiennej dataEntries
+function valid_dataEntries(dataEntries) {
+  if (Array.isArray(dataEntries) == false){
+    console.error("Zmienna dataEntries nie jest listą");
+    return false
+  }
+  if (dataEntries.length>0 == false) {
+    console.error("Zmienna dataEntries jest pusta");
+    return false
+  }
+  if (dataEntries.some(value => value<0)) {
+    console.error("Zmienna dataEntries zawiera liczby ujemne");
+    return false
+  }
+  if (dataEntries.every(Number.isInteger) == false) {
+    console.error("Zmienna dataEntries zawiera liczby dziesiętne");
+    return false
+  }
+  return true
+}
 
+//Walidacja zmiennej settings
+function valid_settings(settings) {
+  if (settings instanceof Object == false) {
+    console.error("Zmienna settings musi być obiektem");
+    return false
+  }
+  if (settings.hasOwnProperty("actualPageIdx")&&settings.hasOwnProperty("entriesOnPage") == false){
+    console.error("Zmienna settings musi mieć klucz actualPageIdx i entriesOnPage");
+    return false
+  }
+  if (Object.values(settings).some(value => value<0)) {
+    console.error("Obiekt settings musi mieć klucze z wartościami dodatnimi");
+    return false
+  }
+  if (Object.values(settings).every(Number.isInteger) == false) {
+    console.error("Zmienna settings musi mieć klucze z wartościami liczb całkowitych");
+    return false
+  }
+  return true
+}
 
 // Stwórz funkcję paginateArray
 const paginateArray = (dataEntries, settings) => {
-	const isNotEmptyArray = Array.isArray(dataEntries)&&dataEntries.length>0
-	const settingsVariableValidator = Number.isInteger(settings.actualPageIdx)&&Number.isInteger(settings.entriesOnPage)&&settings.actualPageIdx>0&&settings.entriesOnPage>0
-	const isNotEmptySettings = settings instanceof Object&&Object.keys(ob).length>0
-	/*Walidacja dataEntries czy jest Arrayem, i czy zawiera jakieś elementy do paginacji.
-	Warunek waliduje również czy*/
-	if (isNotEmptyArray&&isNotEmptySettings&&settingsValidator == true) {
-		return  dataEntries.slice(settings.actualPageIdx*settings.entriesOnPage - settings.entriesOnPage,settings.actualPageIdx*settings.entriesOnPage);
-	}
-	  else if (isNotEmptySettings == false) {
-	    console.log("Źle wprowadzone dane zmiennej dataEntries. Zmienną powinna być tablica, która zawiera przynajmniej jeden element")
-	  }
-	  else if (settingsValidator == false) {
-	    console.log("Złe dane w kluczach walidatora. Kluczem walidatora powinna być całkowita liczba dodatnia")
-	  }
-	  else if (isNotEmptyArray) {
-	    console.log("Zmienna settings powinna być obiektem i zawierać klucze actualPageIdx i entriesOnPage. actualPageIdx to index wybranej strony a entriesOnPage to maksymalna zwracana ilość elementów z dataEntries dla wybranej strony ")
-	  }
-    };
+  valid_settings()
+  valid_dataEntries()
+  return  dataEntries.slice(settings.actualPageIdx*settings.entriesOnPage - settings.entriesOnPage,settings.actualPageIdx*settings.entriesOnPage);
+};
