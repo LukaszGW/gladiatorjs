@@ -54,10 +54,10 @@ const paginateArray = (dataEntries, settings) => {
 	const isNotEmptySettings = settings instanceof Object&&Object.keys(ob).length>0
 	/*Walidacja dataEntries czy jest Arrayem, i czy zawiera jakieś elementy do paginacji.
 	Warunek waliduje również czy*/
-	if (arrayValidator&&settingsValidator&&isNotEmptySettings == true) {
+	if (isNotEmptyArray&&isNotEmptySettings&&settingsValidator == true) {
 		return  dataEntries.slice(settings.actualPageIdx*settings.entriesOnPage - settings.entriesOnPage,settings.actualPageIdx*settings.entriesOnPage);
 	}
-  else if (arrayValidator == false) {
+  else if (isNotEmptySettings == false) {
     console.log("Źle wprowadzone dane zmiennej dataEntries. Zmienną powinna być tablica, która zawiera przynajmniej jeden element")
   }
   else if (settingsValidator == false) {
