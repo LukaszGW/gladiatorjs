@@ -47,11 +47,11 @@ let settings = {actualPageIdx:9, entriesOnPage:50};
 
 //Walidacja zmiennej dataEntries
 function valid_dataEntries(dataEntries) {
-  if (Array.isArray(dataEntries) == false){
+  if (Array.isArray(dataEntries) === false){
     console.error("Zmienna dataEntries nie jest listą");
     return false
   }
-  if (dataEntries.length>0 == false) {
+  if (dataEntries.length>0 === false) {
     console.error("Zmienna dataEntries jest pusta");
     return false
   }
@@ -59,7 +59,7 @@ function valid_dataEntries(dataEntries) {
     console.error("Zmienna dataEntries zawiera liczby ujemne");
     return false
   }
-  if (dataEntries.every(Number.isInteger) == false) {
+  if (dataEntries.every(Number.isInteger) === false) {
     console.error("Zmienna dataEntries zawiera liczby dziesiętne");
     return false
   }
@@ -68,11 +68,11 @@ function valid_dataEntries(dataEntries) {
 
 //Walidacja zmiennej settings
 function valid_settings(settings) {
-  if (settings instanceof Object == false) {
+  if (settings instanceof Object === false) {
     console.error("Zmienna settings musi być obiektem");
     return false
   }
-  if (settings.hasOwnProperty("actualPageIdx")&&settings.hasOwnProperty("entriesOnPage") == false){
+  if (settings.hasOwnProperty("actualPageIdx")&&settings.hasOwnProperty("entriesOnPage") === false){
     console.error("Zmienna settings musi mieć klucz actualPageIdx i entriesOnPage");
     return false
   }
@@ -80,7 +80,7 @@ function valid_settings(settings) {
     console.error("Obiekt settings musi mieć klucze z wartościami dodatnimi");
     return false
   }
-  if (Object.values(settings).every(Number.isInteger) == false) {
+  if (Object.values(settings).every(Number.isInteger) === false) {
     console.error("Zmienna settings musi mieć klucze z wartościami liczb całkowitych");
     return false
   }
@@ -89,7 +89,8 @@ function valid_settings(settings) {
 
 // Stwórz funkcję paginateArray
 const paginateArray = (dataEntries, settings) => {
-  valid_settings()
-  valid_dataEntries()
-  return  dataEntries.slice(settings.actualPageIdx*settings.entriesOnPage - settings.entriesOnPage,settings.actualPageIdx*settings.entriesOnPage);
+  if (valid_settings()&&valid_dataEntries() == true) {
+    return dataEntries.slice(settings.actualPageIdx*settings.entriesOnPage - settings.entriesOnPage,settings.actualPageIdx*settings.entriesOnPage);
+  }
+  return false
 };
