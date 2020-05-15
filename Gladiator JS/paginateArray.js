@@ -52,10 +52,25 @@ const paginateArray = (dataEntries, settings) => {
   for (let i=0; i < dataEntries.length; i += settings.entriesOnPage) {
       entriesToArray.push(dataEntries.slice(i, i + settings.entriesOnPage));
   }
-  /*Walidacja dataEntries czy jest Arrayem, i czy zawiera jakieś elementy do paginacji.
-  Warunek waliduje również czy*/
-  if (settings != null && dataEntries != null) {
-    if (Array.isArray(dataEntries) && Boolean(dataEntries[0]) && typeof(settings.actualPageIdx) == "number" && typeof(settings.entriesOnPage) == "number") && entriesToArray[actualPageIdx] != undefinded
+
+  if (typeof(settings) == "object") {
+    throw Error("settings is not an object");
+  }
+  if (settings.hasOwnProperty('actualPageIdx')&&settings.hasOwnProperty('entriesOnPage')==false) {
+    throw Error("settings do not have properly keys");
+  }
+  if (Array.isArray(dataEntries)==false) {
+    throw Error("dataEntries must be a list of values");
+  };
+  if (dataEntries.length == 0) {
+    throw Error("dataEntries must have elements");
+  };
+  if (Number.isInteger(settings.actualPageIdx)&&settings.actualPageIdx>0 == false) {
+    throw Error("actualPageIdx is not positive integer")
+  }
+  if (Number.isInteger(settings.entriesOnPage)&&settings.entriesOnPage>0 == false) {
+    throw Error("entriesOnPage is not positive integer")
+  }
     {
       let entriesOnSelectedPage = entriesToArray[settings.actualPageIdx];
       return entriesOnSelectedPage;

@@ -30,12 +30,11 @@ function some (list_elements, value) {
     case typeof(value) != "function":
       throw Error("value is not a function")
       break;
-    default:
+        };
+      }
       for (const elem of list_elements) {
         if (Boolean(value(elem)) == true) {
           return true
-        };
-      }
       return false
     }
 }
