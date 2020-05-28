@@ -31,10 +31,10 @@ function some (list_elements, value) {
       throw Error("value is not a function")
       break;
         };
-      }
       for (const elem of list_elements) {
         if (Boolean(value(elem)) == true) {
           return true
-      return false
-    }
+            }
+        }
+    return false
 }
