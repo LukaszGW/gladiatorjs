@@ -1,4 +1,4 @@
-function reduce(list_elements, func, value=list_elements[0]) {
+function reduce(list_elements, callback, value=list_elements[0]) {
   if (Array.isArray(list_elements) == false) {
       throw Error("list_elements is not an Array");
     }
@@ -9,7 +9,7 @@ function reduce(list_elements, func, value=list_elements[0]) {
     throw Error("value is not a function")
   }
   for (const elem of list_elements) {
-      value = value+elem
+      value = callback(value, elem)
   }
   return value
 }
