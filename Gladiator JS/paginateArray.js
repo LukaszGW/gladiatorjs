@@ -45,35 +45,40 @@ let dataEntries = [31, 30, 304, 303, 304, 305, 307, 307, 306, 307, 307, 307,
 //settings zmienna z ustawieniami dotyczącymi indeksu strony (actualPageIdx)
 let settings = {actualPageIdx:9, entriesOnPage:50};
 
+//Funkcje walidujące
+function isPositiveNumber(value) {
+   return Number.isInteger(value)&&value>0
+}
+
+function isNotEmptyArray(list_values) {
+   return Array.isArray(list_values)&&list_values.length !== 0
+}
+
+function isSettingHasProperStructure(settings) {
+   isObject = typeof(settings) == "object"
+   isProperStructure = settings.hasOwnProperty('actualPageIdx')&&settings.hasOwnProperty('entriesOnPage')
+   return isObject&&isProperStructure
+}
 
 // Stwórz funkcję paginateArray
 const paginateArray = (dataEntries, settings) => {
-  entriesToArray = []
-  for (let i=0; i < dataEntries.length; i += settings.entriesOnPage) {
-      entriesToArray.push(dataEntries.slice(i, i + settings.entriesOnPage));
+  if (isSettingHasProperStructure(settings)==false) {
+    throw Error("settings must be an object and have actualPageidx aned entriesOnPage keys");
   }
-
-  if (typeof(settings) == "object") {
-    throw Error("settings is not an object");
-  }
-  if (settings.hasOwnProperty('actualPageIdx')&&settings.hasOwnProperty('entriesOnPage')==false) {
-    throw Error("settings do not have properly keys");
-  }
-  if (Array.isArray(dataEntries)==false) {
+  if (isNotEmptyArray(list_values=dataEntries)==false) {
     throw Error("dataEntries must be a list of values");
   };
-  if (dataEntries.length == 0) {
-    throw Error("dataEntries must have elements");
-  };
-  if (Number.isInteger(settings.actualPageIdx)&&settings.actualPageIdx>0 == false) {
+  if (isPositiveNumber(value=settings.actualPageIdx) == false) {
     throw Error("actualPageIdx is not positive integer")
   }
-  if (Number.isInteger(settings.entriesOnPage)&&settings.entriesOnPage>0 == false) {
+  if (isPositiveNumber(value=settings.entriesOnPage) == false) {
     throw Error("entriesOnPage is not positive integer")
   }
     {
-      let entriesOnSelectedPage = entriesToArray[settings.actualPageIdx];
-      return entriesOnSelectedPage;
+      start = actualPageIdx*entriesOnPage-entriesOnPage
+      end = actualPageIdx*entriesOnPage
+      let entriesOnSelectedPage = dataEntries.slice(start, end)
+      return entriesOnSelectedPage
       };
     }
   else {
